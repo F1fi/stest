@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs
-
 import 'package:flutter/material.dart';
 import 'package:solidtest/widgets/home.dart';
 
@@ -7,7 +5,9 @@ void main() {
   runApp(const Main());
 }
 
+/// Main widget
 class Main extends StatelessWidget {
+  /// Constructor
   const Main({Key? key}) : super(key: key);
 
   @override

@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// Home widget
 class Home extends StatefulWidget {
+  /// Constructor
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -22,15 +24,13 @@ class _HomeState extends State<Home> {
     final green = Random().nextInt(256);
     final blue = Random().nextInt(256);
     final alpha = Random().nextInt(256);
-    setState(() {
-      _color = Color.fromARGB(alpha, red, green, blue);
-      if(_color.computeLuminance() > _brightnessLimit && !blackText){
-        blackText = true;
-      }
-      if(_color.computeLuminance() < _brightnessLimit && blackText){
-        blackText = false;
-      }
-    });
+    _color = Color.fromARGB(alpha, red, green, blue);
+    if(_color.computeLuminance() > _brightnessLimit && !blackText){
+      blackText = true;
+    }
+    if(_color.computeLuminance() < _brightnessLimit && blackText){
+      blackText = false;
+    }
   }
 
   @override
@@ -43,7 +43,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        _changeColor();
+        setState(() {
+          _changeColor();
+        });
       },
       child: AnimatedContainer(
         duration: const  Duration(milliseconds: _duration),
