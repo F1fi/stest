@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:solidtest/widgets/colorHelper.dart';
 
 /// Home widget
 class Home extends StatefulWidget {
@@ -13,54 +12,47 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  Color _color = Colors.white;
-  bool blackText = false;
+  final ColorHelper _colorHelper = ColorHelper();
   static const int _duration = 500;
-  static const double _brightnessLimit = 0.12;
   static const double _fontSize = 16;
-
-  void _changeColor(){
-    final red = Random().nextInt(256);
-    final green = Random().nextInt(256);
-    final blue = Random().nextInt(256);
-    final alpha = Random().nextInt(256);
-    _color = Color.fromARGB(alpha, red, green, blue);
-    if(_color.computeLuminance() > _brightnessLimit && !blackText){
-      blackText = true;
-    }
-    if(_color.computeLuminance() < _brightnessLimit && blackText){
-      blackText = false;
-    }
-  }
-
-  @override
-  void initState() {
-    _changeColor();
-    super.initState();
-  }
+  static const double _buttonMargin = 10;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        setState(() {
-          _changeColor();
-        });
-      },
-      child: AnimatedContainer(
-        duration: const  Duration(milliseconds: _duration),
-        color: _color,
-        child: Center(
-          child: AnimatedDefaultTextStyle(
-            duration: const Duration(milliseconds: _duration),
-            style: TextStyle(
-              color: blackText? Colors.black: Colors.white,
-              fontSize: _fontSize,
+    return 
+      Stack(
+        children: [
+          GestureDetector(
+            onTap: (){
+              setState(() => _colorHelper.updateColor());
+            },
+            child: 
+            AnimatedContainer(
+              duration: const  Duration(milliseconds: _duration),
+              color: _colorHelper.color,
+              child: Center(
+                child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: _duration),
+                  style: TextStyle(
+                    color: _colorHelper.blackText? Colors.black: Colors.white,
+                    fontSize: _fontSize,
+                  ),
+                  child: const Text("Hey there"),
+                ),
+              ),
             ),
-            child: const Text("Hey there")
           ),
-        ),
-      ),
-    );
+          Positioned(
+            top: _buttonMargin,
+            left: _buttonMargin,
+            child: TextButton(
+              onPressed: (){
+                setState( () => _colorHelper.backColor());
+              },
+              child: const Text("Back"),
+            ),
+          )
+        ]
+      );
   }
 }

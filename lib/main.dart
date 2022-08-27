@@ -16,6 +16,7 @@ class Main extends StatelessWidget {
       title: 'Flutter Demo',
       home: SafeArea(
         child: Scaffold(
+          // appBar: AppBar()s,
           body: Home()
         )
       ),
