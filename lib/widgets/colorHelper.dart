@@ -7,7 +7,6 @@ class ColorHelper{
   final List<Color> _colors = [Colors.white];
   Color _color = Colors.white;
   int _index = 0;
-  bool _blackText = true;
 
   static const double _brightnessLimit = 0.12;
   static const int _alpha = 255;
@@ -15,7 +14,7 @@ class ColorHelper{
   /// get Color
   Color get color => _colors[_index];
   /// get bool BlackText
-  bool get blackText => _blackText;
+  bool get blackText => _colors[_index].computeLuminance() >= _brightnessLimit;
 
   void _generateColor(){
     final red = Random().nextInt(256);
@@ -23,7 +22,7 @@ class ColorHelper{
     final blue = Random().nextInt(256);
     _color = Color.fromARGB(_alpha, red, green, blue);
     _colors.add(_color);
-    _blackText = _color.computeLuminance() >= _brightnessLimit;
+    _index = _colors.length - 1;
   }
 
   /// updateColor by click on screen

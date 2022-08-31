@@ -24,6 +24,7 @@ class _HomeState extends State<Home> {
         children: [
           GestureDetector(
             onTap: (){
+              
               setState(() => _colorHelper.updateColor());
             },
             child: 
@@ -37,7 +38,7 @@ class _HomeState extends State<Home> {
                     color: _colorHelper.blackText? Colors.black: Colors.white,
                     fontSize: _fontSize,
                   ),
-                  child: const Text("Hey there"),
+                  child: const Text("Hey there 👋"),
                 ),
               ),
             ),
